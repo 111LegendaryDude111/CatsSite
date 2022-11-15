@@ -77,7 +77,7 @@ btn.addEventListener('click',() =>{
 
 async function createCard(i = 1){
     let obj;
-    const response = await fetch('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show/'+i)
+    const response = await fetch('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show/'+i)
     .then(resp => resp.json())
     .then(data => {
         obj = data.data;
@@ -96,3 +96,14 @@ async function createCard(i = 1){
 div.append(cardDiv);
     });
 }
+
+
+async function addCats(url){
+
+    const response = await fetch(url)
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+
+    
+}
+addCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show')
