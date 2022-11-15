@@ -19,27 +19,27 @@
 // img_link — строка. Ссылка на картинку
 
 // 111LegendaryDude111
- async function postCats(url,id,age,name,rate,description,favourite,imgLink){
+//  async function postCats(url,id,age,name,rate,description,favourite,imgLink){
 
- const response = await fetch(url,{
+//  const response = await fetch(url,{
 
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'id': id,
-        'age': age,
-        'name': name,
-        'rate': rate,
-        'description': description,
-        'favourite': favourite,
-        'img_link': imgLink
-      })
-});
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         'id': id,
+//         'age': age,
+//         'name': name,
+//         'rate': rate,
+//         'description': description,
+//         'favourite': favourite,
+//         'img_link': imgLink
+//       })
+// });
 
- return await response.json();
-}
+//  return await response.json();
+// }
 
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',1, 3, "Энгри", 6, 'Злой кот', true, 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg');
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',2, 4, "Блэк", 7, 'Черынй кот', false, 'https://cdn.britannica.com/25/172925-050-DC7E2298/black-cat-back.jpg');
