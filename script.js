@@ -41,12 +41,12 @@
  return await response.json();
 }
 
-postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',1, 3, "Энгри", 6, 'Злой кот', true, 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg');
-postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',2, 4, "Блэк", 7, 'Черынй кот', false, 'https://cdn.britannica.com/25/172925-050-DC7E2298/black-cat-back.jpg');
-postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',3, 5, "Фараон", 8, 'Египетсикий кот', true, 'https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg');
-postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',4, 6, "Котенок", 9, 'Маленький кот', false, 'https://www.scotsman.com/webimg/b25lY21zOjg4YmZiZjU1LTk3YmEtNDZmYy1hNjg3LWRlNTMzMzg5ZjQ2NDo0Mjc1YWU5NC0yYjA2LTRiM2YtYjA3OC0xYTE0ZDgzYWNhODE=.jpg?width=1200&enable=upscale');
-postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',5, 7, "Рыжик", 10, 'Рыжий кот', true, 'https://cdn.theatlantic.com/thumbor/W544GIT4l3z8SG-FMUoaKpFLaxE=/0x131:2555x1568/1600x900/media/img/mt/2017/06/shutterstock_319985324/original.jpg');
-postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',6, 8, "Пушок", 10, 'Белый кот', true, 'http://www.perthcathospital.com.au/wp-content/uploads/2021/02/Fotolia_84472072_L.jpg')
+// postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',1, 3, "Энгри", 6, 'Злой кот', true, 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg');
+// postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',2, 4, "Блэк", 7, 'Черынй кот', false, 'https://cdn.britannica.com/25/172925-050-DC7E2298/black-cat-back.jpg');
+// postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',3, 5, "Фараон", 8, 'Египетсикий кот', true, 'https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg');
+// postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',4, 6, "Котенок", 9, 'Маленький кот', false, 'https://www.scotsman.com/webimg/b25lY21zOjg4YmZiZjU1LTk3YmEtNDZmYy1hNjg3LWRlNTMzMzg5ZjQ2NDo0Mjc1YWU5NC0yYjA2LTRiM2YtYjA3OC0xYTE0ZDgzYWNhODE=.jpg?width=1200&enable=upscale');
+// postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',5, 7, "Рыжик", 10, 'Рыжий кот', true, 'https://cdn.theatlantic.com/thumbor/W544GIT4l3z8SG-FMUoaKpFLaxE=/0x131:2555x1568/1600x900/media/img/mt/2017/06/shutterstock_319985324/original.jpg');
+// postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',6, 8, "Пушок", 10, 'Белый кот', true, 'http://www.perthcathospital.com.au/wp-content/uploads/2021/02/Fotolia_84472072_L.jpg')
 
 // function deleteCat(id){
 //     fetch(`http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/delete/${id}`,{
