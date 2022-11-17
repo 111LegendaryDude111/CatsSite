@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',6, 8, "Пушок", 10, 'Белый кот', true, 'http://www.perthcathospital.com.au/wp-content/uploads/2021/02/Fotolia_84472072_L.jpg')
 
 async function deleteCat(id){
-    await fetch(`http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/delete/${id}`,{
+    await fetch(`https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/delete/${id}`,{
         method: 'DELETE'
     });
 }
@@ -145,7 +145,7 @@ const modalBtn = document.querySelector('#modalBtn');
 modalBtn.addEventListener('click',async () => {
    let catArray = JSON.parse(localStorage.getItem('carArr'));
 
-await postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',catArray.length + 1,
+await postCats('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',catArray.length + 1,
 document.querySelector('#age').value,
 document.querySelector('#name').value,
 document.querySelector('#rate').value,
