@@ -1,7 +1,7 @@
 
 
 window.addEventListener('DOMContentLoaded', () => {
-
+localStorage.clear()
  async function postCats(url,id,age,name,rate,description,favourite,imgLink){
 
  const response = await fetch(url,{
@@ -120,13 +120,11 @@ async function addCats(url){
                 if(catArr[i].name === target.parentNode.innerText.split('\n')[0]){
                     target.parentNode.parentNode.style.display ='none';
                     deleteCat(catArr[i].id);
+                    localStorage.clear();
                 }
             }
         }));
 
-
-
-        
 });
 }
 addCats('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show');
@@ -155,7 +153,6 @@ document.querySelector('#img').value)
         modal.style.display = 'none';
         alert('Вы добавили нового кота');
         location.reload()
-
 });
 
 
