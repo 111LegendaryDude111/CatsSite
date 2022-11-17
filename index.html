@@ -11,13 +11,75 @@
             display: flex;
             flex-direction: row;
         }
+
+        .cards{
+            display: flex;
+            flex-direction: row;
+        }
+        .modal{
+            position:fixed;
+            top:0;
+            left:0;
+            z-index:1050;
+            display:none;
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            background-color:rgba(0,0,0,.5);    
+            text-align:center;
+        }
+        .modal__input{display:block;
+            margin:20px auto 20px auto;
+            width:400px;height:800px;
+            box-shadow:0 4px 15px rgba(0,0,0,.2);
+            border:none;
+            font-size:18px;
+            text-align:center;
+            padding:0 20px;outline:0}
+            
+        .modal-btn{display:block;
+            width:280px;
+            margin:0 auto;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .rm18{
+            width: 18rem;
+        }
+        .rm25{
+            width: 25rem;
+        }
     </style>
     <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="wrapper">
-
+    <div class="wrapper d-flex py-5 justify-content-center">
     </div>
-    <button type="button" id="add"> Добавить Кота</button>
+    <button type="button" id="add" class="modal-btn"> Добавить Кота</button>
+    <div data-modal class="modal modal-dialog-centered" id="modal">
+       <div class="modal__dialog">
+        <div  class="modal__content">
+            <div class="modal__title">
+                <h3 style="color:white ;">Добавить кота:</h3>
+            </div>
+            <div class="modal__input">
+                <input type="text" id="name" placeholder="Введите имя кота">
+                <input type="text" id="age" placeholder="Введите возраст кота">
+                <input type="text" id="descr" placeholder="Введите описание кота">
+                <input type="text" id="rate" placeholder="Введите рейтинг кота от 1 до 10">
+                <input type="text" id="img" placeholder="Вставьте ссылку на картинку с котом">
+                <br>
+                <button  style="width:200px;margin-top: 25px;" type="submit" id="modalBtn">Отправить</button>
+            </div>
+        </div>
+      </div>
+    </div>
 </body>
 </html>

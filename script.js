@@ -1,46 +1,28 @@
-// GET - получить информацию обо всех котах
-//     http://sb-cats.herokuapp.com/api/2/<name>/show
 
-// GET - получить массив всех существующих id
-//     http://sb-cats.herokuapp.com/api/2/<name>/ids
 
-// GET - получить информацию об одном котике по id
-//     http://sb-cats.herokuapp.com/api/2/<name>/show/<id кота>
+window.addEventListener('DOMContentLoaded', () => {
 
-// POST - добавить нового кота (id, name - обязательно!)
-//     http://sb-cats.herokuapp.com/api/2/<name>/add
-// Тело запроса может включать следующие поля:
-// id (обязательное поле) — число
-// age — число
-// name (обязательное поле) — строка
-// rate — число от 1 до 10
-// description — строка
-// favourite — логическое значение true или false
-// img_link — строка. Ссылка на картинку
+ async function postCats(url,id,age,name,rate,description,favourite,imgLink){
 
-// 111LegendaryDude111
-//  async function postCats(url,id,age,name,rate,description,favourite,imgLink){
+ const response = await fetch(url,{
 
-//  const response = await fetch(url,{
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'id': id,
+        'age': age,
+        'name': name,
+        'rate': rate,
+        'description': description,
+        'favourite': favourite,
+        'img_link': imgLink
+      })
+});
 
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({
-//         'id': id,
-//         'age': age,
-//         'name': name,
-//         'rate': rate,
-//         'description': description,
-//         'favourite': favourite,
-//         'img_link': imgLink
-//       })
-// });
-
-//  return await response.json();
-// }
-
+ return await response.json();
+}
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',1, 3, "Энгри", 6, 'Злой кот', true, 'https://i.natgeofe.com/n/9135ca87-0115-4a22-8caf-d1bdef97a814/75552.jpg');
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',2, 4, "Блэк", 7, 'Черынй кот', false, 'https://cdn.britannica.com/25/172925-050-DC7E2298/black-cat-back.jpg');
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',3, 5, "Фараон", 8, 'Египетсикий кот', true, 'https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg');
@@ -48,62 +30,134 @@
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',5, 7, "Рыжик", 10, 'Рыжий кот', true, 'https://cdn.theatlantic.com/thumbor/W544GIT4l3z8SG-FMUoaKpFLaxE=/0x131:2555x1568/1600x900/media/img/mt/2017/06/shutterstock_319985324/original.jpg');
 // postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',6, 8, "Пушок", 10, 'Белый кот', true, 'http://www.perthcathospital.com.au/wp-content/uploads/2021/02/Fotolia_84472072_L.jpg')
 
-// function deleteCat(id){
-//     fetch(`http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/delete/${id}`,{
-//         method: 'DELETE'
-//     });
-// }
-// deleteCat(1);
-// deleteCat(2);
-// deleteCat(3);
-// deleteCat(4);
-// deleteCat(5);
-// deleteCat(6);
-
-
-let div = document.querySelector('.wrapper');
-let btn = document.querySelector('#add'),
-i = 1;
-btn.addEventListener('click',() =>{
-    createCard(i);
-    if (i < 6){
-    i++;
-    }else if(i < 6) {
-        i++;
-    }else{
-        i = 1;
-    }
-});
-
-async function createCard(i = 1){
-    let obj;
-    const response = await fetch('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show/'+i)
-    .then(resp => resp.json())
-    .then(data => {
-        obj = data.data;
-        console.log(obj)        
-        let cardDiv = document.createElement('div');
-                cardDiv.innerHTML = `
-                    <div class="card" style="width: 18rem;">
-                    <img src=${obj.img_link} class="card-img-top" >
-                    <div class="card-body">
-                    <h5 class="card-title">${obj.name}</h5>
-                    <p class="card-text">${obj.description}</p>
-                    <button href="#" class="btn btn-primary">Удалить</button>
-                </div>
-                </div>
-        `;
-div.append(cardDiv);
+async function deleteCat(id){
+    await fetch(`http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/delete/${id}`,{
+        method: 'DELETE'
     });
 }
 
 
+let div = document.querySelector('.wrapper');
+let btn = document.querySelector('#add');
+let catArr;
+
+//Добавление котов на страницу с сервера
 async function addCats(url){
+        const response = await fetch(url)
+        .then(resp => resp.json())
+        .then(data =>{
+            catArr = data.data;
+            let card = document.createElement('div');
+            card.classList.add('cards');
+            for (let i = 0; i < catArr.length; i++){
+                    card.innerHTML += `
+                    <div class="card rm18 " id = '${i + 1}' ">
+                    <img src=${catArr[i].img_link} class="card-img-top" >
+                    <div class="card-body">
+                    <h5 class="card-title">${catArr[i].name}</h5>
+                    <p class="card-text description hide">Описание: ${catArr[i].description}</p>
+                    <p class="card-text rate hide"> Рейтинг кота - ${catArr[i].rate}</p>
+                    <button data-del class="btn btn-primary btn-delete">Удалить</button>
+                </div>
+                </div>
+           `;
 
-    const response = await fetch(url)
-    .then(resp => resp.json())
-    .then(data => console.log(data))
+        }
+        div.append(card);
 
-    
+        localStorage.setItem('carArr', JSON.stringify(catArr));
+        
+       
+                //Отображение инофрмации о коте
+                     let cardInfo = document.querySelectorAll('.card-img-top');
+
+                     cardInfo.forEach(el => el.addEventListener('mousedown', (e) => {
+                         let target = e.target;
+                        for (let j = 0; j < catArr.length;j++){
+                            if(catArr[j].name === target.parentNode.innerText.split('\n')[0] ){
+                                target.parentNode.classList.remove('rm18')
+                                target.parentNode.classList.add('rm25')
+
+                               document.querySelectorAll('.rate')[j].classList.add('show')
+                               document.querySelectorAll('.rate')[j].classList.remove('hide')
+
+                               document.querySelectorAll('.description')[j].classList.add('show')
+                               document.querySelectorAll('.description')[j].classList.remove('hide')
+
+                            }
+                            
+                        }
+
+                     }));
+                     cardInfo.forEach(el => el.addEventListener('mouseleave', (e) => {
+                        let target = e.target;
+                         for (let j = 0; j < catArr.length;j++){
+                             if(catArr[j].name === target.parentNode.innerText.split('\n'  )[0]){
+
+                                target.parentNode.classList.add('rm18')
+                                target.parentNode.classList.remove('rm25')
+
+                                document.querySelectorAll('.rate')[j].classList.remove('show')
+                                document.querySelectorAll('.rate')[j].classList.add('hide')
+
+                                document.querySelectorAll('.description')[j].classList.remove('show')
+                               document.querySelectorAll('.description')[j].classList.add('hide')
+                             }
+                             
+                         }
+                 }));
+
+
+
+
+
+
+    //Удаление кота
+    let deleteBtn = document.querySelectorAll('.card-body button');
+        deleteBtn.forEach(el => el.addEventListener('click', (e)=>{
+            let target = e.target;
+            for (let i = 0; i < catArr.length;i++){
+                if(catArr[i].name === target.parentNode.innerText.split('\n')[0]){
+                    target.parentNode.parentNode.style.display ='none';
+                    deleteCat(catArr[i].id);
+                }
+            }
+        }));
+
+
+
+        
+});
 }
-addCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show')
+addCats('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show');
+
+
+//Modal and  Добавление нового кота
+const modal = document.querySelector('[data-modal]');
+modal.style.display = 'none';
+
+btn.addEventListener('click',() =>{
+    modal.style.display = 'block';
+});
+
+const modalBtn = document.querySelector('#modalBtn');
+
+modalBtn.addEventListener('click',async () => {
+   let catArray = JSON.parse(localStorage.getItem('carArr'));
+
+await postCats('http://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',catArray.length + 1,
+document.querySelector('#age').value,
+document.querySelector('#name').value,
+document.querySelector('#rate').value,
+document.querySelector('#descr').value,
+true,
+document.querySelector('#img').value)
+        modal.style.display = 'none';
+        alert('Вы добавили нового кота');
+        location.reload()
+
+});
+
+
+
+});
