@@ -1,7 +1,8 @@
 
 
 window.addEventListener('DOMContentLoaded', () => {
-localStorage.clear()
+
+localStorage.removeItem('catArr');
  async function postCats(url,id,age,name,rate,description,favourite,imgLink){
 
  const response = await fetch(url,{
@@ -56,7 +57,10 @@ async function addCats(url){
                     <div class="card-body">
                     <h5 class="card-title">${catArr[i].name}</h5>
                     <p class="card-text description hide">Описание: ${catArr[i].description}</p>
-                    <p class="card-text rate hide"> Рейтинг кота - ${catArr[i].rate}</p>
+                    <button class="btn btn-primary btn-decriment ">-</button>
+                    <p class="card-text rate "> Рейтинг кота - ${catArr[i].rate}</p>
+                    <button class="btn btn-primary btn-incriment">+</button>
+                    <br>
                     <button data-del class="btn btn-primary btn-delete">Удалить</button>
                 </div>
                 </div>
@@ -69,7 +73,7 @@ async function addCats(url){
         
        
                 //Отображение инофрмации о коте
-                     let cardInfo = document.querySelectorAll('.card-img-top');
+                     let cardInfo = document.querySelectorAll('.card-body');
 
                      cardInfo.forEach(el => el.addEventListener('mousedown', (e) => {
                          let target = e.target;
@@ -78,17 +82,18 @@ async function addCats(url){
                                 target.parentNode.classList.remove('rm18')
                                 target.parentNode.classList.add('rm25')
 
-                               document.querySelectorAll('.rate')[j].classList.add('show')
-                               document.querySelectorAll('.rate')[j].classList.remove('hide')
+                            //    document.querySelectorAll('.rate')[j].classList.add('show')
+                            //    document.querySelectorAll('.rate')[j].classList.remove('hide')
 
                                document.querySelectorAll('.description')[j].classList.add('show')
                                document.querySelectorAll('.description')[j].classList.remove('hide')
 
-                            }
-                            
-                        }
 
+                            }
+                        }
                      }));
+
+                     //скрытие информации о коте
                      cardInfo.forEach(el => el.addEventListener('mouseleave', (e) => {
                         let target = e.target;
                          for (let j = 0; j < catArr.length;j++){
@@ -97,11 +102,13 @@ async function addCats(url){
                                 target.parentNode.classList.add('rm18')
                                 target.parentNode.classList.remove('rm25')
 
-                                document.querySelectorAll('.rate')[j].classList.remove('show')
-                                document.querySelectorAll('.rate')[j].classList.add('hide')
+                                // document.querySelectorAll('.rate')[j].classList.remove('show')
+                                // document.querySelectorAll('.rate')[j].classList.add('hide')
 
                                 document.querySelectorAll('.description')[j].classList.remove('show')
                                document.querySelectorAll('.description')[j].classList.add('hide')
+
+  
                              }
                              
                          }
@@ -110,10 +117,8 @@ async function addCats(url){
 
 
 
-
-
     //Удаление кота
-    let deleteBtn = document.querySelectorAll('.card-body button');
+    let deleteBtn = document.querySelectorAll('.btn-delete');
         deleteBtn.forEach(el => el.addEventListener('click', (e)=>{
             let target = e.target;
             for (let i = 0; i < catArr.length;i++){
@@ -126,17 +131,60 @@ async function addCats(url){
         }));
 
 });
+
+
+// Рейтинг котов
+    let btnDecriment = document.querySelectorAll('.btn-decriment'),
+        btnIncriment = document.querySelectorAll('.btn-incriment');
+
+    btnDecriment.forEach(el => el.addEventListener('click', (e)=>{
+        let pRate = e.target.nextElementSibling
+        pRate.innerHTML = `Рейтинг кота - ${pRate.innerHTML.replace(/\D/g,'') - 1}`;
+
+    }));
+    
+    btnIncriment.forEach(el => el.addEventListener('click', (e)=>{
+        let pRate = e.target.previousElementSibling
+        pRate.innerHTML = `Рейтинг кота - ${+pRate.innerHTML.replace(/\D/g,'') + 1}`;
+
+    }));
+
 }
 addCats('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show');
+
+
 
 
 //Modal and  Добавление нового кота
 const modal = document.querySelector('[data-modal]');
 modal.style.display = 'none';
 
+let form = document.form;
+let data ;
 btn.addEventListener('click',() =>{
     modal.style.display = 'block';
+    
+if (!localStorage.getItem('catsData')){
+    form.addEventListener('input', ()=>{
+        data = {
+            name:form.name.value,
+            age:form.age.value,
+            rate: form.rate.value,
+            descr: form.descr.value
+        }
+        console.log(data);
+        localStorage.setItem('catsData', JSON.stringify(data))
+    });
+}else{
+    data = JSON.parse(localStorage.getItem('catsData'));
+    form.name.value = data.name;
+    form.age.value = data.age ;
+    form.rate.value = data.rate ;
+    form.descr.value = data.descr;
+    }
+
 });
+
 
 const modalBtn = document.querySelector('#modalBtn');
 
@@ -144,17 +192,16 @@ modalBtn.addEventListener('click',async () => {
    let catArray = JSON.parse(localStorage.getItem('carArr'));
 
 await postCats('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',catArray.length + 1,
-document.querySelector('#age').value,
-document.querySelector('#name').value,
-document.querySelector('#rate').value,
-document.querySelector('#descr').value,
+form.age.value,
+form.name.value,
+form.rate.value,
+form.descr.value,
 true,
 document.querySelector('#img').value)
-        modal.style.display = 'none';
-        alert('Вы добавили нового кота');
-        location.reload()
+alert('Вы добавили нового кота')
+localStorage.removeItem('catsData')
+location.reload();
 });
-
 
 
 });
