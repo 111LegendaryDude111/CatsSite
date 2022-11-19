@@ -2,7 +2,6 @@
 
 window.addEventListener('DOMContentLoaded', () => {
 
-localStorage.removeItem('catArr');
  async function postCats(url,id,age,name,rate,description,favourite,imgLink){
 
  const response = await fetch(url,{
@@ -52,10 +51,10 @@ async function addCats(url){
             card.classList.add('cards');
             for (let i = 0; i < catArr.length; i++){
                     card.innerHTML += `
-                    <div class="card rm18 " id = '${i + 1}' ">
+                    <div class="card rm18 m-2" id = '${i + 1}' ">
                     <img src=${catArr[i].img_link} class="card-img-top" >
                     <div class="card-body">
-                    <h5 class="card-title">${catArr[i].name}</h5>
+                    <h5 class="card-title catname">${catArr[i].name}</h5>
                     <p class="card-text description hide">Описание: ${catArr[i].description}</p>
                     <button class="btn btn-primary btn-decriment ">-</button>
                     <p class="card-text rate "> Рейтинг кота - ${catArr[i].rate}</p>
@@ -82,9 +81,6 @@ async function addCats(url){
                                 target.parentNode.classList.remove('rm18')
                                 target.parentNode.classList.add('rm25')
 
-                            //    document.querySelectorAll('.rate')[j].classList.add('show')
-                            //    document.querySelectorAll('.rate')[j].classList.remove('hide')
-
                                document.querySelectorAll('.description')[j].classList.add('show')
                                document.querySelectorAll('.description')[j].classList.remove('hide')
 
@@ -102,15 +98,9 @@ async function addCats(url){
                                 target.parentNode.classList.add('rm18')
                                 target.parentNode.classList.remove('rm25')
 
-                                // document.querySelectorAll('.rate')[j].classList.remove('show')
-                                // document.querySelectorAll('.rate')[j].classList.add('hide')
-
                                 document.querySelectorAll('.description')[j].classList.remove('show')
                                document.querySelectorAll('.description')[j].classList.add('hide')
-
-  
                              }
-                             
                          }
                  }));
 
@@ -189,15 +179,28 @@ if (!localStorage.getItem('catsData')){
 const modalBtn = document.querySelector('#modalBtn');
 
 modalBtn.addEventListener('click',async () => {
-   let catArray = JSON.parse(localStorage.getItem('carArr'));
+// console.log(catArr)
 
-await postCats('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',catArray.length + 1,
-form.age.value,
-form.name.value,
-form.rate.value,
-form.descr.value,
-true,
-document.querySelector('#img').value)
+let data = {
+    id:catArr.length + 1 ,
+age: form.age.value,
+name: form.name.value,
+rate: form.rate.value,
+description:form.descr.value,
+favourite: true,
+img_link: form.img.value
+}
+
+const respons = await fetch('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/add',{
+    method:'POST',
+    headers: {
+        "Content-type": 'application/json'
+    },
+    body: JSON.stringify(data)
+});
+
+let result = await respons.json();
+console.log(result);
 alert('Вы добавили нового кота')
 localStorage.removeItem('catsData')
 location.reload();
