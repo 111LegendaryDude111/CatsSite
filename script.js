@@ -52,7 +52,7 @@ async function addCats(url){
             for (let i = 0; i < catArr.length; i++){
                     card.innerHTML += `
                     <div class="card rm18 m-2" id = '${i + 1}' ">
-                    <img src=${catArr[i].img_link} class="card-img-top" >
+                    <img src=${catArr[i].img_link} class="card-img-top heigh" >
                     <div class="card-body">
                     <h5 class="card-title catname">${catArr[i].name}</h5>
                     <p class="card-text description hide">Описание: ${catArr[i].description}</p>
@@ -68,8 +68,6 @@ async function addCats(url){
         }
         div.append(card);
 
-        localStorage.setItem('carArr', JSON.stringify(catArr));
-        
        
                 //Отображение инофрмации о коте
                      let cardInfo = document.querySelectorAll('.card-body');
@@ -161,6 +159,7 @@ if (!localStorage.getItem('catsData')){
             age:form.age.value,
             rate: form.rate.value,
             descr: form.descr.value
+            
         }
         console.log(data);
         localStorage.setItem('catsData', JSON.stringify(data))
@@ -179,10 +178,10 @@ if (!localStorage.getItem('catsData')){
 const modalBtn = document.querySelector('#modalBtn');
 
 modalBtn.addEventListener('click',async () => {
-// console.log(catArr)
+console.log(catArr)
 
 let data = {
-    id:catArr.length + 1 ,
+id:catArr.length + 1 ,
 age: form.age.value,
 name: form.name.value,
 rate: form.rate.value,
