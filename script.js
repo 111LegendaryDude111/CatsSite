@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
 }
 
 async function deleteCat(id){
-    await fetch(`https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/delete/${id}`,{
+    await fetch(`https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/delete/` +id,{
         method: 'DELETE'
     });
 }
@@ -83,8 +83,9 @@ async function addCats(url){
         deleteBtn.forEach(el => el.addEventListener('click', (e)=>{
             let target = e.target;
             console.log(target.offsetParent.id)
+            deleteCat(target.offsetParent.id);   
             target.offsetParent.style.display = 'none';
-            deleteCat(target.offsetParent.id);  
+            alert("Вы удалили кота!")
         }));
 
         let changeBtn = document.querySelectorAll('[data-change]');
@@ -94,13 +95,18 @@ async function addCats(url){
         changeBtn.forEach(el => el.addEventListener('click', (e)=>{
             let target = e.target;
             form = changeFormModal.children[0];
+            changeFormModal.classList.remove('hide')
             changeFormModal.classList.add('show')
             form[3].addEventListener('click',()=>{
                 changeCats(target.offsetParent.id,
                     form[0].value,
                     form[1].value,
                     form[2].value);
+                alert('Вы изменили данные о коте');
+                changeFormModal.classList.remove('show')
+                changeFormModal.classList.add('hide')
             });
+            
         }));
 
 // Рейтинг котов
@@ -126,7 +132,7 @@ addCats('https://sb-cats.herokuapp.com/api/2/<111LegendaryDude111>/show');
 const modal = document.querySelector('[data-modal]');
 modal.style.display = 'none';
 
-let form = document.form[0];
+let form = document.form;
 let data ;
 btn.addEventListener('click',() =>{
     modal.style.display = 'block';
