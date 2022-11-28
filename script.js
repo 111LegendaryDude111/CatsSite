@@ -37,25 +37,23 @@ async function addCats(url){
             catArr = data.data;
             let card = document.createElement('div');
             card.classList.add('cards');
-            for (let i = 0; i < catArr.length; i++){
-                    card.innerHTML += `
-                    <div class="card rm18 m-2" id = '${i + 1}' ">
-                    <img src=${catArr[i].img_link} class="card-img-top heigh" >
-                    <div class="card-body">
-                    <h5 class="card-title catname">${catArr[i].name}</h5>
-                    <p class="card-text description hide">Описание: ${catArr[i].description}</p>
-                    <button class="btn btn-primary btn-decriment ">-</button>
-                    <p class="card-text rate "> Рейтинг кота - ${catArr[i].rate}</p>
-                    <button class="btn btn-primary btn-incriment">+</button>
-                    <br>
-                    <button data-del class="btn btn-primary btn-delete m-2">Удалить</button>
-                    <button data-change='change' class="btn btn-primary btn-change">Изменить</button>
+            catArr.forEach((el,i) => {
+                card.innerHTML += `
+                <div class="card rm18 m-2" id = '${el.id}' ">
+                        <img src=${el.img_link} class="card-img-top heigh" >
+                        <div class="card-body">
+                        <h5 class="card-title catname">${el.name}</h5>
+                        <p class="card-text description hide">Описание: ${el.description}</p>
+                        <button class="btn btn-primary btn-decriment ">-</button>
+                        <p class="card-text rate "> Рейтинг кота - ${el.rate}</p>
+                        <button class="btn btn-primary btn-incriment">+</button>
+                        <br>
+                        <button data-del class="btn btn-primary btn-delete m-2">Удалить</button>
+                        <button data-change='change' class="btn btn-primary btn-change">Изменить</button>
 
-                </div>
-                </div>
-           `;
-
-        }
+                    </div>
+                    </div>`
+        })
         div.append(card);
     });
        
@@ -83,7 +81,7 @@ async function addCats(url){
         deleteBtn.forEach(el => el.addEventListener('click', (e)=>{
             let target = e.target;
             console.log(target.offsetParent.id)
-            deleteCat(target.offsetParent.id);   
+            deleteCat(target.offsetParent.id); 
             target.offsetParent.style.display = 'none';
             alert("Вы удалили кота!")
         }));
@@ -164,7 +162,7 @@ const modalBtn = document.querySelector('#modalBtn');
 
 modalBtn.addEventListener('click',async () => {
     let data = {
-    id:catArr.length + 1 ,
+    id: Date.now(),
     age: +form.age.value,
     name: form.name.value,
     rate: +form.rate.value,
@@ -182,7 +180,6 @@ const respons = await fetch('https://sb-cats.herokuapp.com/api/2/<111LegendaryDu
 });
 
     let result = await respons.json();
-    console.log(result);
     alert('Вы добавили нового кота')
     localStorage.removeItem('catsData')
     location.reload();
